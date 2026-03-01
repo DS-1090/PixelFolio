@@ -52,6 +52,19 @@ npm run build
 npm run preview
 ```
 
+## Scripts
+- `npm run dev` - start local development server
+- `npm run build` - generate production build in `dist/`
+- `npm run preview` - preview production build locally
+- `npm run lint` - run ESLint
+
+## Deployment (GitHub Pages)
+
+This repo is a **project site** (`DS-1090/PixelFolio`), so it is served from:
+
+`https://ds-1090.github.io/PixelFolio/`
+
+
 ## Scene Interactions
 - **Monitor screen**: Resume
 - **Monitor body**: About Me
@@ -62,11 +75,12 @@ npm run preview
 - **Coffee cup**: Food section
 
 ## Project Structure
+- `.github/workflows/deploy-pages.yml` - GitHub Pages deployment pipeline
 - `src/components/` - 3D scene and overlay UI components
 - `src/data/portfolioContent.js` - content for projects, about, tech, hobbies, food, themes
 - `src/config/assets.js` - env-based asset URL mapping
 - `public/assets/` - static assets served at runtime
+- `dist/` - production output (generated, do not edit manually)
 
 ## Notes
-- Restart the dev server after changing `.env`.
 - `.env` is ignored by git; `.env.example` is committed.

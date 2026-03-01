@@ -6,7 +6,6 @@ const fallbackAssets = {
 function resolveAssetUrl(input) {
   if (!input) return input;
 
-  // Keep absolute URLs untouched; resolve local assets against Vite base path.
   if (/^(https?:)?\/\//i.test(input) || input.startsWith("data:")) return input;
 
   const normalized = input.startsWith("/") ? input.slice(1) : input;

@@ -23,9 +23,9 @@ export const PROJECTS = [
     stack: ["Flutter", "Django", "PySpark", "SQL"],
     href: "https://github.com/DS-1090/EzyAid",
     blurb:
-      "Event-driven welfare discovery platform with real-time scheme updates and accessibility-first design.",
+      "Event-driven welfare discovery platform with real-time scheme updates and accessibility-first design",
     detail:
-      "Designed and built an end-to-end event-driven architecture to surface government welfare schemes with real-time updates. Integrated CDC using Debezium, streamed changes through Kafka, cached updates with Redis, and exposed structured APIs via Django to a cross-platform Flutter app.",
+      "Designed and built an end-to-end event-driven architecture to surface government welfare schemes with real-time updates Integrated CDC using Debezium, streamed changes through Kafka, cached updates with Redis, and exposed structured APIs via Django to a cross-platform Flutter app",
     highlights: [
       "CDC-based real-time data pipeline (MySQL → Debezium → Kafka -> Redis → Django)",
       "Spark-powered ETL for scraped scheme processing",
@@ -37,8 +37,8 @@ export const PROJECTS = [
   {
     name: "Indian Pattern Classifier",
     stack: ["Python", "TensorFlow", "Roboflow"],
-    href: "https://github.com/DS-1090/Indian_Pattern_Classifier",
-    blurb: "Deep learning pipeline for Indian fabric pattern classification.",
+    href: "https://githubcom/DS-1090/Indian_Pattern_Classifier",
+    blurb: "Deep learning pipeline for Indian fabric pattern classification",
     detail:
       "Built a custom CNN to classify Banarasi, Pichwai, and Ikat patterns, achieving 0.82 test accuracy. Benchmarked transfer learning models (ResNet, EfficientNet) and evaluated performance across architectures using structured training and validation workflows.",
     highlights: [
@@ -57,8 +57,8 @@ export const PROJECTS = [
       "Gemini API",
       "IoT Sensors",
     ],
-    href: "https://github.com/DS-1090/mini_project",
-    blurb: "IoT-enabled fire alert system with real-time cloud notifications.",
+    href: "https://githubcom/DS-1090/mini_project",
+    blurb: "IoT-enabled fire alert system with real-time cloud notifications",
     detail:
       "Designed an end-to-end emergency alert system that streams IoT fire events to a Flutter mobile app via Firebase. Integrated Google Maps for rapid incident navigation, Gemini AI for chatbot assistance, and Firestore for secure user and emergency contact persistence.",
     highlights: [
@@ -74,55 +74,55 @@ export const TECH_STACK = [
   {
     name: "Java",
     lane: "Backend",
-    detail: "Scalable, OOP-driven backend systems and services.",
+    detail: "Scalable, OOP-driven backend systems and services",
   },
   {
     name: "Spring Boot",
     lane: "Backend",
-    detail: "REST APIs, OAuth2 security, and microservice architecture.",
+    detail: "REST APIs, OAuth2 security, and microservice architecture",
   },
   {
     name: "Python",
     lane: "Backend + ML",
-    detail: "Data-heavy workflows, and model experimentation.",
+    detail: "Data-heavy workflows, and model experimentation",
   },
   {
     name: "Django",
     lane: "Backend",
-    detail: "Rapid API development with clean MVC structure.",
+    detail: "Rapid API development with clean MVC structure",
   },
   {
     name: "Flutter",
     lane: "Mobile",
-    detail: "Cross-platform Android and iOS applications.",
+    detail: "Cross-platform Android and iOS applications",
   },
   {
     name: "TensorFlow",
     lane: "Machine Learning",
-    detail: "Deep learning models for vision and classification.",
+    detail: "Deep learning models for vision and classification",
   },
 ];
 
 export const HOBBY_SPOTS = [
   {
     name: "Poetry & Creative Writing",
-    note: "Turning my 12 am muses into rhythm and hidden letters.",
+    note: "Turning my 12 am muses into rhythm and hidden letters",
   },
   {
     name: "Indian Art & Craft",
-    note: "Honoring the Indian in me with colors, motifs, and raagas.",
+    note: "Honoring the Indian in me with colors, motifs, and raagas",
   },
   {
     name: "Nature Strolls & Gardening",
-    note: "Tending to my green thumb and watching winged friends in the backyard.",
+    note: "Tending to my green thumb and watching winged friends in the backyard",
   },
   {
     name: "Cultural Travel",
-    note: "Backpacking through old lanes and collecting their stories.",
+    note: "Backpacking through old lanes and collecting their stories",
   },
   {
     name: "Badminton & Chess",
-    note: "Swinging rackets or planning my next checkmate.",
+    note: "Swinging rackets or planning my next checkmate",
   },
 ];
 
@@ -153,22 +153,22 @@ export const ABOUT_TIMELINE = [
   {
     year: "2025-2026",
     title: "Optculture, SWE",
-    note: "Primarily working on backend systems and microservices.",
+    note: "Primarily working on backend systems and microservices",
   },
   {
     year: "2021-2025",
-    title: "UCE, Osmania University, B.Tech CSE",
+    title: "UCE, Osmania University, B.E CSE",
     note: "Graduated with 9.42 GPA 🥈",
   },
   {
     year: "2014-2019",
     title: "Bharatiya Vidya Bhavans Public School",
-    note: "Completed schooling with 96.4%.",
+    note: "Completed schooling with 96.4%",
   },
 ];
 
 export const BLOG_TEXT =
-  "The nook for my unsaid desires, longings, and musings.";
+  "The nook for my unsaid desires, longings, and musings";
 
 export const THEMES = [
   { id: "studio", label: "Studio Warm" },

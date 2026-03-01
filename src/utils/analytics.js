@@ -14,11 +14,9 @@ export function trackEvent(type, payload = {}) {
     parsed.counters[type] = (parsed.counters[type] || 0) + 1;
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
   } catch {
-    // Keep analytics best-effort and non-blocking.
   }
 
   if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-    // Visible in devtools while building content interactions.
     console.info("[analytics]", event);
   }
 }

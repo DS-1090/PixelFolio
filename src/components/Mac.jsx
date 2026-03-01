@@ -31,7 +31,6 @@ function getMonitorAnchor(scene) {
   const normalWorld = new THREE.Vector3(0, 0, 1)
     .applyQuaternion(monitorMesh.getWorldQuaternion(new THREE.Quaternion()))
     .normalize();
-  // Keep Html in front of the screen plane to avoid clipping/behind artifacts.
   const offset = Math.max(sizeWorld.z * 0.1, 0.045);
   const anchorWorld = centerWorld.addScaledVector(normalWorld, offset);
   const anchorLocal = scene.worldToLocal(anchorWorld.clone());

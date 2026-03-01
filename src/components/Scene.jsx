@@ -1,0 +1,91 @@
+import { AdaptiveEvents, OrbitControls, PerformanceMonitor } from "@react-three/drei";
+import { useRef } from "react";
+import Mac from "./Mac";
+import CameraController from "./CameraController";
+import RoomEnvironment from "./RoomEnvironment";
+
+const THEME_SCENE = {
+  studio: {
+    background: "#1e1e2f",
+    keyLight: "#ffb266",
+    fillLight: "#7aa8ff",
+  },
+  terminal: {
+    background: "#13211b",
+    keyLight: "#8bffb5",
+    fillLight: "#7fe4ff",
+  },
+  paper: {
+    background: "#252017",
+    keyLight: "#f0c78e",
+    fillLight: "#c6b89a",
+  },
+};
+
+export default function Scene({
+  activeSection,
+  hoveredSection,
+  setActiveSection,
+  setHoveredSection,
+  setDpr,
+  theme,
+}) {
+  const controlsRef = useRef(null);
+  const modelRef = useRef(null);
+  const sceneTheme = THEME_SCENE[theme] || THEME_SCENE.studio;
+
+  return (
+    <>
+      <color attach="background" args={[sceneTheme.background]} />
+
+      <ambientLight intensity={0.35} />
+      <directionalLight
+        position={[3.5, 4.2, 2.5]}
+        intensity={1.1}
+        color={sceneTheme.keyLight}
+      />
+      <pointLight position={[-3, 2, 2]} intensity={0.6} color={sceneTheme.fillLight} />
+      <RoomEnvironment
+        theme={theme}
+        hoveredSection={hoveredSection}
+        setActiveSection={setActiveSection}
+        setHoveredSection={setHoveredSection}
+      />
+      <AdaptiveEvents />
+      <PerformanceMonitor
+        bounds={{ min: 0.45, max: 0.92 }}
+        onChange={({ factor }) => {
+          const nextDpr = Math.min(1.5, Math.max(0.85, 1 + factor * 0.5));
+          setDpr(nextDpr);
+        }}
+      />
+
+      {hoveredSection === "resume" && (
+        <pointLight position={[0.2, 1.4, 1.4]} intensity={0.75} color="#7ea8ff" distance={5} />
+      )}
+
+      <group ref={modelRef} position={[0.50, 0.26, 4.5]} rotation={[0, 0, 0]}>
+        <Mac
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+          setHoveredSection={setHoveredSection}
+        />
+      </group>
+
+      <CameraController
+        activeSection={activeSection}
+        controlsRef={controlsRef}
+        modelRef={modelRef}
+      />
+
+      <OrbitControls
+        ref={controlsRef}
+        makeDefault
+        enableZoom={false}
+        enablePan={false}
+        minPolarAngle={0.95}
+        maxPolarAngle={1.2}
+      />
+    </>
+  );
+}

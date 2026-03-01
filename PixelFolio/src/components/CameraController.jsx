@@ -11,6 +11,7 @@ const SECTION_OFFSETS = {
   about: [0.82, 0.5, 2.25],
   hobbies: [-0.95, 0.82, 2.3],
   coding: [0.95, 0.35, 2.25],
+  food: [0.62, 0.6, 1.6],
 };
 
 function collectAnchors(root) {

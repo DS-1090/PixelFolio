@@ -32,8 +32,9 @@ export function getSectionFromMeshName(meshName) {
 
   if (
     name.includes("painting") ||
-    name.includes("frame") ||
-    name.includes("canvas")
+    name.includes("paintingframe") ||
+    name.includes("paintingcanvas") ||
+    name.includes("wallart")
   ) {
     return "hobbies";
   }

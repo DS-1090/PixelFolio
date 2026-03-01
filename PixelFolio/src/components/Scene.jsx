@@ -1,4 +1,4 @@
-import { AdaptiveDpr, AdaptiveEvents, OrbitControls, PerformanceMonitor } from "@react-three/drei";
+import { AdaptiveEvents, OrbitControls, PerformanceMonitor } from "@react-three/drei";
 import { useRef } from "react";
 import Mac from "./Mac";
 import CameraController from "./CameraController";
@@ -26,12 +26,11 @@ export default function Scene({
         setActiveSection={setActiveSection}
         setHoveredSection={setHoveredSection}
       />
-      <AdaptiveDpr pixelated />
       <AdaptiveEvents />
       <PerformanceMonitor
         bounds={{ min: 0.45, max: 0.92 }}
         onChange={({ factor }) => {
-          const nextDpr = 1 + factor * 0.5;
+          const nextDpr = Math.min(1.5, Math.max(0.85, 1 + factor * 0.5));
           setDpr(nextDpr);
         }}
       />

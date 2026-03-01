@@ -24,9 +24,12 @@ export default function MonitorContent({ position, rotation, scale = 1 }) {
           <section className="monitor-body monitor-body--resume">
             <div className="monitor-resume-frame">
               <object data={resumeUrl} type="application/pdf" className="monitor-resume-object">
-                <a href={resumeUrl} target="_blank" rel="noreferrer">
-                  Resume preview is unavailable. Open PDF.
-                </a>
+                <div className="resume-fallback">
+                  <p>Inline PDF preview is unavailable in this browser.</p>
+                  <a href={resumeUrl} target="_blank" rel="noreferrer">
+                    Open Resume
+                  </a>
+                </div>
               </object>
             </div>
           </section>

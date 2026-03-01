@@ -10,7 +10,7 @@ const SECTION_HINTS = {
   about: "Computer Body: About Me",
   hobbies: "Painting: Hobbies",
   coding: "Cable: Tech Stack",
-  food: "Coffee: Energy Source",
+  food: "Coffee: Favorite Flavours",
 };
 
 export default function App() {

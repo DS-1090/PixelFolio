@@ -81,6 +81,7 @@ export default function Mac({
   const { scene } = useGLTF(modelUrl);
   const [hovered, setHovered] = useState(false);
   const highlightedMeshRef = useRef(null);
+  const hoveredSectionRef = useRef(null);
   useCursor(hovered);
 
   const interactiveMeshCount = useMemo(() => {
@@ -100,8 +101,11 @@ export default function Mac({
   };
 
   const clearHoverState = () => {
-    setHovered(false);
-    setHoveredSection(null);
+    if (hoveredSectionRef.current !== null) {
+      hoveredSectionRef.current = null;
+      setHovered(false);
+      setHoveredSection(null);
+    }
 
     if (highlightedMeshRef.current) {
       setMeshHighlight(highlightedMeshRef.current, null, false);
@@ -126,9 +130,12 @@ export default function Mac({
         onPointerMove={(e) => {
           e.stopPropagation();
           const mesh = e.object;
-          const section = getSectionFromMeshName(mesh.name || "");
-          setHovered(Boolean(section));
-          setHoveredSection(section);
+          const section = getSectionFromMeshName(mesh.name || "") || null;
+          if (hoveredSectionRef.current !== section) {
+            hoveredSectionRef.current = section;
+            setHovered(Boolean(section));
+            setHoveredSection(section);
+          }
 
           if (highlightedMeshRef.current !== mesh) {
             if (highlightedMeshRef.current) {

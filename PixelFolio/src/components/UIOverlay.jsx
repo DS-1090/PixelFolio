@@ -1,98 +1,21 @@
 import { useMemo, useState } from "react";
 import hobbiesImageUrl from "../model/assets/painting.png?url";
-
-const PROJECTS = [
-  {
-    name: "EzyAid",
-    stack: ["Flutter", "Django", "PySpark", "SQL"],
-    href: "https://github.com/DS-1090/EzyAid",
-    blurb:
-      "Real-time, accessible welfare discovery platform with event-driven architecture.",
-  },
-  {
-    name: "Indian Pattern Classifier",
-    stack: ["TensorFlow", "Python"],
-    href: "https://github.com/DS-1090/Indian_Pattern_Classifier",
-    blurb:
-      "Custom CNN for Pattern classification; leveraged ResNet, EfficientNet.",
-  },
-  {
-    name: "Blaze Buddy",
-    stack: ["Flutter", "Firebase"],
-    href: "https://github.com/DS-1090/mini_project",
-    blurb: "IoT fire alert system with real-time cloud notifications.",
-  },
-];
-const TECH_STACK = [
-  {
-    name: "Java",
-    lane: "Backend",
-    detail: "Scalable, OOP-driven backend systems and services.",
-  },
-  {
-    name: "Spring Boot",
-    lane: "Backend",
-    detail: "REST APIs, OAuth2 security, and microservice architecture.",
-  },
-  {
-    name: "Django",
-    lane: "Backend",
-    detail: "Rapid API development with clean MVC structure.",
-  },
-  {
-    name: "Flutter",
-    lane: "Mobile",
-    detail: "Cross-platform Android and iOS applications.",
-  },
-  {
-    name: "TensorFlow",
-    lane: "Machine Learning",
-    detail: "Deep learning models for vision and classification.",
-  },
-];
-const HOBBY_SPOTS = [
-  {
-    name: "Poetry & Creative Writing",
-    note: "Turning my 12 am muses into rhythm and hidden letters.",
-  },
-  {
-    name: "Indian Art & Craft",
-    note: "Honouring the indian in me with colors, motifs and raagas.",
-  },
-  {
-    name: "Nature Strolls & Gardening",
-    note: "Tending to my green thumb and chasing winged angels in the backyard.",
-  },
-  {
-    name: "Cultural Travel",
-    note: "Backpacking through ancient lanes and living in their whispers.",
-  },
-  {
-    name: "Badminton & Chess",
-    note: "For the desk-bound mastermind in me.",
-  },
-];
-
-const FAV_FOODS = [
-  "Evening Chaat from My Neighbourhood",
-  "Everyday Ghar ka Khana",
-  "Steaming Dal with Telugu Tadka and ghee",
-  "Biryani for the Yay, Meh and Sigh Days",
-  "Brownie for when the rain pours down",
-];
+import {
+  ABOUT_TEXT,
+  BLOG_TEXT,
+  FAV_FOODS,
+  HOBBY_SPOTS,
+  PROJECTS,
+  SECTION_HEADINGS,
+  TECH_STACK,
+} from "../data/portfolioContent";
 
 export default function UIOverlay({ activeSection, setActiveSection }) {
   const [activeTech, setActiveTech] = useState(TECH_STACK[0]);
   const [activeHobby, setActiveHobby] = useState(HOBBY_SPOTS[0]);
 
   const heading = useMemo(() => {
-    if (activeSection === "projects") return "Builds and Experiments";
-    if (activeSection === "about") return "Me, Myself and I";
-    if (activeSection === "blogs") return "My Poetry Nook";
-    if (activeSection === "coding") return "Tech Grid";
-    if (activeSection === "hobbies") return "Hobbies and Passions";
-    if (activeSection === "food") return "Favorite Flavours";
-    return "";
+    return SECTION_HEADINGS[activeSection] || "";
   }, [activeSection]);
 
   if (!activeSection || activeSection === "resume") return null;
@@ -142,22 +65,14 @@ export default function UIOverlay({ activeSection, setActiveSection }) {
 
       {activeSection === "about" && (
         <>
-          <p>
-            Hey there, I'm Divya Sahithi, backend developer with roots in Java
-            and Spring Boot, building systems to solve problems that bother me
-            or spark my curiosity.
-          </p>
-          <p>
-            When I'm not immersed in algorithms, you'll find me writing poetry,
-            painting fragments of my day onto a memory canvas, or quietly
-            planning my next checkmate.
-          </p>
+          <p>{ABOUT_TEXT[0]}</p>
+          <p>{ABOUT_TEXT[1]}</p>
         </>
       )}
 
       {activeSection === "blogs" && (
         <>
-          <p>The nook for my unsaid desires, longings and musings</p>
+          <p>{BLOG_TEXT}</p>
           <a
             className="hero-link"
             href="https://substack.com/@divyasahithi"
@@ -219,12 +134,12 @@ export default function UIOverlay({ activeSection, setActiveSection }) {
 
       {activeSection === "food" && (
         <>
-          <p>Recipes that stayed with me</p>
+          <p className="food-intro">Recipes that stayed with me</p>
           <div className="food-grid">
             {FAV_FOODS.map((food) => (
-              <span key={food} className="food-pill">
-                {food}
-              </span>
+              <article key={food.name} className="food-card">
+                <h3>{food.name}</h3>
+              </article>
             ))}
           </div>
         </>

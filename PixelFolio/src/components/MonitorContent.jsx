@@ -1,7 +1,9 @@
 import { Html } from "@react-three/drei";
-import resumeUrl from "../model/assets/Divya_Resume__Copy_ (5).pdf?url";
+import { ASSET_URLS } from "../config/assets";
 
 export default function MonitorContent({ position, rotation, scale = 1 }) {
+  const resumeUrl = ASSET_URLS.resumePdfUrl;
+
   return (
     <Html
       transform

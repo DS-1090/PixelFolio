@@ -1,7 +1,7 @@
 import { Sparkles, Text, useTexture } from "@react-three/drei";
 import { useMemo, useState } from "react";
 import * as THREE from "three";
-import paintingUrl from "../model/assets/painting.png?url";
+import { ASSET_URLS } from "../config/assets";
 
 const IGNORE_RAYCAST = () => null;
 const ROOM_THEME = {
@@ -46,6 +46,7 @@ export default function RoomEnvironment({
   setActiveSection,
   setHoveredSection,
 }) {
+  const paintingUrl = ASSET_URLS.paintingImageUrl;
   const paintingTexture = useTexture(paintingUrl);
   const paintingMap = useMemo(() => {
     const nextTexture = paintingTexture.clone();

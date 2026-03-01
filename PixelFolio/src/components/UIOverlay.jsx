@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import hobbiesImageUrl from "../model/assets/painting.png?url";
+import { ASSET_URLS } from "../config/assets";
 import {
   ABOUT_TEXT,
   ABOUT_TIMELINE,
@@ -45,6 +45,7 @@ function ProjectModal({ project, onClose }) {
 }
 
 export default function UIOverlay({ activeSection }) {
+  const hobbiesImageUrl = ASSET_URLS.paintingImageUrl;
   const [activeTech, setActiveTech] = useState(TECH_STACK[0]);
   const [activeHobby, setActiveHobby] = useState(HOBBY_SPOTS[0]);
   const [focusProject, setFocusProject] = useState(null);

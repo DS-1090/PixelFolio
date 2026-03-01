@@ -32,8 +32,8 @@ cp .env.example .env
 ```
 
 Current env variables:
-- `VITE_RESUME_PDF_URL`: URL to resume PDF (default: `/assets/resume.pdf`)
-- `VITE_PAINTING_IMAGE_URL`: URL to painting/hobbies image (default: `/assets/painting.png`)
+- `VITE_RESUME_PDF_URL`: URL to resume PDF (default: `assets/resume.pdf`)
+- `VITE_PAINTING_IMAGE_URL`: URL to painting/hobbies image (default: `assets/painting.png`)
 
 Note: These files should be available from the Vite `public` folder (for example `public/assets/...`).
 

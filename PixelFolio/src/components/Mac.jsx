@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useCursor, useGLTF } from "@react-three/drei";
+import { Text, useCursor, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import modelUrl from "../model/mac3.glb?url";
 import MonitorContent from "./MonitorContent";
 import { getSectionFromMeshName } from "./meshRouting";
 
 const MONITOR_CONTENT_SCALE = 12.5;
+const IGNORE_RAYCAST = () => null;
 
 function getMonitorAnchor(scene) {
   let monitorMesh = null;
@@ -26,10 +27,13 @@ function getMonitorAnchor(scene) {
 
   const box = new THREE.Box3().setFromObject(monitorMesh);
   const centerWorld = box.getCenter(new THREE.Vector3());
+  const sizeWorld = box.getSize(new THREE.Vector3());
   const normalWorld = new THREE.Vector3(0, 0, 1)
     .applyQuaternion(monitorMesh.getWorldQuaternion(new THREE.Quaternion()))
     .normalize();
-  const anchorWorld = centerWorld.addScaledVector(normalWorld, 0.01);
+  // Keep Html in front of the screen plane to avoid clipping/behind artifacts.
+  const offset = Math.max(sizeWorld.z * 0.1, 0.045);
+  const anchorWorld = centerWorld.addScaledVector(normalWorld, offset);
   const anchorLocal = scene.worldToLocal(anchorWorld.clone());
 
   const sceneWorldQuat = scene.getWorldQuaternion(new THREE.Quaternion());
@@ -93,6 +97,14 @@ export default function Mac({
   }, [scene]);
 
   const monitorAnchor = useMemo(() => getMonitorAnchor(scene), [scene]);
+  const monitorBadgePosition = useMemo(() => {
+    if (!monitorAnchor) return null;
+    return [
+      monitorAnchor.position[0],
+      monitorAnchor.position[1] - 0.72,
+      monitorAnchor.position[2] + 0.06,
+    ];
+  }, [monitorAnchor]);
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -161,6 +173,24 @@ export default function Mac({
             rotation={monitorAnchor.rotation}
             scale={MONITOR_CONTENT_SCALE}
           />
+        </group>
+      )}
+
+      {monitorAnchor && monitorBadgePosition && (
+        <group scale={0.1}>
+          <Text
+            position={monitorBadgePosition}
+            rotation={monitorAnchor.rotation}
+            fontSize={0.9}
+            color="#f0e8d7"
+            outlineWidth={0.02}
+            outlineColor="#3e3e3e"
+            anchorX="center"
+            anchorY="middle"
+            raycast={IGNORE_RAYCAST}
+          >
+            DS
+          </Text>
         </group>
       )}
     </group>

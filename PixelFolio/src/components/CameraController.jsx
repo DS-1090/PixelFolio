@@ -5,7 +5,7 @@ import { getSectionFromMeshName } from "./meshRouting";
 
 const SECTION_OFFSETS = {
   default: [0, 1.25, 5.2],
-  resume: [0.18, 0.55, 1.75],
+  resume: [0, 0.32, 1.7],
   blogs: [0.35, 0.35, 1.95],
   projects: [-0.42, 0.4, 2.0],
   about: [0.82, 0.5, 2.25],
@@ -82,7 +82,11 @@ export default function CameraController({ activeSection, controlsRef, modelRef 
     );
 
     targetPosition.current.copy(anchor).add(scaledOffset);
-    lookAtTarget.current.copy(anchor);
+    if (section === "resume") {
+      lookAtTarget.current.copy(anchor).add(new THREE.Vector3(0, 0.02, 0));
+    } else {
+      lookAtTarget.current.copy(anchor);
+    }
   }, [section, modelRef]);
 
   useFrame(() => {

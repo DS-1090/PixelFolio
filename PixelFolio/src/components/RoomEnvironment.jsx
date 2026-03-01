@@ -1,11 +1,51 @@
-import { Sparkles, useTexture } from "@react-three/drei";
-import { useMemo } from "react";
+import { Sparkles, Text, useTexture } from "@react-three/drei";
+import { useMemo, useState } from "react";
 import * as THREE from "three";
 import paintingUrl from "../model/assets/painting.png?url";
 
 const IGNORE_RAYCAST = () => null;
+const ROOM_THEME = {
+  studio: {
+    floor: "#5c4639",
+    backWall: "#3b3452",
+    sideWall: "#332d47",
+    desk: "#7a563d",
+    deskLeg: "#5d3f2f",
+    lampStand: "#9d7b48",
+    lampBulb: "#ffd389",
+    lampGlow: "#ffbf7a",
+    engrave: "#2d2119",
+  },
+  terminal: {
+    floor: "#2f3a31",
+    backWall: "#1f3329",
+    sideWall: "#182a21",
+    desk: "#3e4b3f",
+    deskLeg: "#2a332b",
+    lampStand: "#7ea882",
+    lampBulb: "#bfffd4",
+    lampGlow: "#8bffc7",
+    engrave: "#1b2a21",
+  },
+  paper: {
+    floor: "#6a543f",
+    backWall: "#5a4b3e",
+    sideWall: "#4c4035",
+    desk: "#8b6a4f",
+    deskLeg: "#6d4f39",
+    lampStand: "#b99665",
+    lampBulb: "#ffe1af",
+    lampGlow: "#ffd29a",
+    engrave: "#3b2e22",
+  },
+};
 
-export default function RoomEnvironment({ hoveredSection, setActiveSection, setHoveredSection }) {
+export default function RoomEnvironment({
+  theme,
+  hoveredSection,
+  setActiveSection,
+  setHoveredSection,
+}) {
   const paintingTexture = useTexture(paintingUrl);
   const paintingMap = useMemo(() => {
     const nextTexture = paintingTexture.clone();
@@ -18,6 +58,8 @@ export default function RoomEnvironment({ hoveredSection, setActiveSection, setH
     if (typeof navigator === "undefined") return 65;
     return navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4 ? 45 : 85;
   }, []);
+  const [lampHovered, setLampHovered] = useState(false);
+  const roomTheme = ROOM_THEME[theme] || ROOM_THEME.studio;
 
   const handlePaintingHover = (e) => {
     e.stopPropagation();
@@ -48,6 +90,15 @@ export default function RoomEnvironment({ hoveredSection, setActiveSection, setH
     e.stopPropagation();
     setActiveSection?.("food");
   };
+  const handleLampHover = (e) => {
+    e.stopPropagation();
+    setLampHovered(true);
+  };
+
+  const handleLampOut = (e) => {
+    e.stopPropagation();
+    setLampHovered(false);
+  };
   const paintingHovered = hoveredSection === "hobbies";
   const coffeeHovered = hoveredSection === "food";
 
@@ -55,39 +106,38 @@ export default function RoomEnvironment({ hoveredSection, setActiveSection, setH
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.55, 0]} raycast={IGNORE_RAYCAST}>
         <planeGeometry args={[18, 18]} />
-        <meshStandardMaterial color="#5c4639" roughness={0.92} metalness={0.05} />
+        <meshStandardMaterial color={roomTheme.floor} roughness={0.92} metalness={0.05} />
       </mesh>
 
       <mesh position={[0, 2.7, -3.7]} raycast={IGNORE_RAYCAST}>
         <planeGeometry args={[18, 9]} />
-        <meshStandardMaterial color="#3b3452" roughness={0.9} />
+        <meshStandardMaterial color={roomTheme.backWall} roughness={0.9} />
       </mesh>
 
       <mesh position={[-4.8, 2.2, -1.8]} rotation={[0, Math.PI / 2.8, 0]} raycast={IGNORE_RAYCAST}>
         <planeGeometry args={[9, 9]} />
-        <meshStandardMaterial color="#332d47" roughness={0.92} />
+        <meshStandardMaterial color={roomTheme.sideWall} roughness={0.92} />
       </mesh>
 
       <mesh position={[0, -0.02, 1.65]} raycast={IGNORE_RAYCAST}>
         <boxGeometry args={[9.2, 0.28, 5.6]} />
-        <meshStandardMaterial color="#7a563d" roughness={0.78} />
+        <meshStandardMaterial color={roomTheme.desk} roughness={0.78} />
       </mesh>
-
       <mesh position={[3.7, -0.9, 3.9]} raycast={IGNORE_RAYCAST}>
         <boxGeometry args={[0.48, 1.7, 0.48]} />
-        <meshStandardMaterial color="#5d3f2f" roughness={0.82} />
+        <meshStandardMaterial color={roomTheme.deskLeg} roughness={0.82} />
       </mesh>
       <mesh position={[-3.7, -0.9, 3.9]} raycast={IGNORE_RAYCAST}>
         <boxGeometry args={[0.48, 1.7, 0.48]} />
-        <meshStandardMaterial color="#5d3f2f" roughness={0.82} />
+        <meshStandardMaterial color={roomTheme.deskLeg} roughness={0.82} />
       </mesh>
       <mesh position={[3.7, -0.9, -0.55]} raycast={IGNORE_RAYCAST}>
         <boxGeometry args={[0.48, 1.7, 0.48]} />
-        <meshStandardMaterial color="#5d3f2f" roughness={0.82} />
+        <meshStandardMaterial color={roomTheme.deskLeg} roughness={0.82} />
       </mesh>
       <mesh position={[-3.7, -0.9, -0.55]} raycast={IGNORE_RAYCAST}>
         <boxGeometry args={[0.48, 1.7, 0.48]} />
-        <meshStandardMaterial color="#5d3f2f" roughness={0.82} />
+        <meshStandardMaterial color={roomTheme.deskLeg} roughness={0.82} />
       </mesh>
 
       <mesh
@@ -128,15 +178,32 @@ export default function RoomEnvironment({ hoveredSection, setActiveSection, setH
         color="#ffd29c"
       />
 
-      <mesh position={[2.95, 1.28, 0.92]} raycast={IGNORE_RAYCAST}>
+      <mesh
+        position={[2.95, 1.28, 0.92]}
+        onPointerMove={handleLampHover}
+        onPointerOut={handleLampOut}
+      >
         <cylinderGeometry args={[0.13, 0.18, 0.86, 18]} />
-        <meshStandardMaterial color="#9d7b48" roughness={0.45} metalness={0.2} />
+        <meshStandardMaterial color={roomTheme.lampStand} roughness={0.45} metalness={0.2} />
       </mesh>
-      <mesh position={[2.95, 1.9, 0.92]} raycast={IGNORE_RAYCAST}>
+      <mesh
+        position={[2.95, 1.9, 0.92]}
+        onPointerMove={handleLampHover}
+        onPointerOut={handleLampOut}
+      >
         <sphereGeometry args={[0.26, 20, 20]} />
-        <meshStandardMaterial color="#ffd389" emissive="#ffbf6b" emissiveIntensity={0.55} />
+        <meshStandardMaterial
+          color={roomTheme.lampBulb}
+          emissive={roomTheme.lampGlow}
+          emissiveIntensity={lampHovered ? 0.95 : 0.55}
+        />
       </mesh>
-      <pointLight position={[2.95, 2.02, 0.92]} intensity={1.05} distance={8} color="#ffbf7a" />
+      <pointLight
+        position={[2.95, 2.02, 0.92]}
+        intensity={lampHovered ? 1.6 : 1.05}
+        distance={8}
+        color={roomTheme.lampGlow}
+      />
 
       <group
         position={[2.1, 0.2, 2.05]}

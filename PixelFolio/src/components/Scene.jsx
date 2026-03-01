@@ -4,24 +4,49 @@ import Mac from "./Mac";
 import CameraController from "./CameraController";
 import RoomEnvironment from "./RoomEnvironment";
 
+const THEME_SCENE = {
+  studio: {
+    background: "#1e1e2f",
+    keyLight: "#ffb266",
+    fillLight: "#7aa8ff",
+  },
+  terminal: {
+    background: "#13211b",
+    keyLight: "#8bffb5",
+    fillLight: "#7fe4ff",
+  },
+  paper: {
+    background: "#252017",
+    keyLight: "#f0c78e",
+    fillLight: "#c6b89a",
+  },
+};
+
 export default function Scene({
   activeSection,
   hoveredSection,
   setActiveSection,
   setHoveredSection,
   setDpr,
+  theme,
 }) {
   const controlsRef = useRef(null);
   const modelRef = useRef(null);
+  const sceneTheme = THEME_SCENE[theme] || THEME_SCENE.studio;
 
   return (
     <>
-      <color attach="background" args={["#1e1e2f"]} />
+      <color attach="background" args={[sceneTheme.background]} />
 
       <ambientLight intensity={0.35} />
-      <directionalLight position={[3.5, 4.2, 2.5]} intensity={1.1} color="#ffb266" />
-      <pointLight position={[-3, 2, 2]} intensity={0.6} color="#7aa8ff" />
+      <directionalLight
+        position={[3.5, 4.2, 2.5]}
+        intensity={1.1}
+        color={sceneTheme.keyLight}
+      />
+      <pointLight position={[-3, 2, 2]} intensity={0.6} color={sceneTheme.fillLight} />
       <RoomEnvironment
+        theme={theme}
         hoveredSection={hoveredSection}
         setActiveSection={setActiveSection}
         setHoveredSection={setHoveredSection}

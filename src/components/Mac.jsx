@@ -99,9 +99,9 @@ export default function Mac({
   const monitorBadgePosition = useMemo(() => {
     if (!monitorAnchor) return null;
     return [
-      monitorAnchor.position[0],
-      monitorAnchor.position[1] - 0.72,
-      monitorAnchor.position[2] + 0.06,
+      monitorAnchor.position[0] - 5.3,
+      monitorAnchor.position[1] + 6,
+      monitorAnchor.position[2] + 0.96,
     ];
   }, [monitorAnchor]);
 
@@ -180,15 +180,15 @@ export default function Mac({
           <Text
             position={monitorBadgePosition}
             rotation={monitorAnchor.rotation}
-            fontSize={0.9}
-            color="#f0e8d7"
+            fontSize={0.6}
+            color="#5f491b"
             outlineWidth={0.02}
             outlineColor="#3e3e3e"
             anchorX="center"
             anchorY="middle"
             raycast={IGNORE_RAYCAST}
           >
-            DS
+            ds@macintosh ~ %
           </Text>
         </group>
       )}

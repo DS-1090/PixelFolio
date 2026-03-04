@@ -569,6 +569,11 @@ canvas {
   cursor: pointer;
 }
 
+.palette-item.active {
+  border-color: rgba(255, 220, 172, 0.72);
+  background: rgba(79, 55, 107, 0.92);
+}
+
 .palette-item span {
   font-size: 0.75rem;
   color: #dfd0ba;

@@ -99,12 +99,13 @@ export default function UIOverlay({ activeSection }) {
   if (!activeSection || activeSection === "resume") return null;
 
   return (
-    <aside className={`overlay-card overlay-card--${activeSection}`}>
-      <header className="overlay-header">
-        <h2>{heading}</h2>
-      </header>
+    <>
+      <aside className={`overlay-card overlay-card--${activeSection}`}>
+        <header className="overlay-header">
+          <h2>{heading}</h2>
+        </header>
 
-      <div className="overlay-content">
+        <div className="overlay-content">
         {activeSection === "projects" && (
           <>
             <p>Click project cards for details or jump to the repository.</p>
@@ -262,12 +263,13 @@ export default function UIOverlay({ activeSection }) {
             </div>
           </>
         )}
-      </div>
+        </div>
+      </aside>
 
       <ProjectModal
         project={focusProject}
         onClose={() => setFocusProject(null)}
       />
-    </aside>
+    </>
   );
 }

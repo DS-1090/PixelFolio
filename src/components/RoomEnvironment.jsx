@@ -57,7 +57,9 @@ export default function RoomEnvironment({
 
   const sparkleCount = useMemo(() => {
     if (typeof navigator === "undefined") return 65;
-    return navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4 ? 45 : 85;
+    return navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4
+      ? 45
+      : 85;
   }, []);
   const [lampHovered, setLampHovered] = useState(false);
   const roomTheme = ROOM_THEME[theme] || ROOM_THEME.studio;
@@ -105,9 +107,17 @@ export default function RoomEnvironment({
 
   return (
     <group>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.55, 0]} raycast={IGNORE_RAYCAST}>
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -1.55, 0]}
+        raycast={IGNORE_RAYCAST}
+      >
         <planeGeometry args={[18, 18]} />
-        <meshStandardMaterial color={roomTheme.floor} roughness={0.92} metalness={0.05} />
+        <meshStandardMaterial
+          color={roomTheme.floor}
+          roughness={0.92}
+          metalness={0.05}
+        />
       </mesh>
 
       <mesh position={[0, 2.7, -3.7]} raycast={IGNORE_RAYCAST}>
@@ -115,7 +125,11 @@ export default function RoomEnvironment({
         <meshStandardMaterial color={roomTheme.backWall} roughness={0.9} />
       </mesh>
 
-      <mesh position={[-4.8, 2.2, -1.8]} rotation={[0, Math.PI / 2.8, 0]} raycast={IGNORE_RAYCAST}>
+      <mesh
+        position={[-4.8, 2.2, -1.8]}
+        rotation={[0, Math.PI / 2.8, 0]}
+        raycast={IGNORE_RAYCAST}
+      >
         <planeGeometry args={[9, 9]} />
         <meshStandardMaterial color={roomTheme.sideWall} roughness={0.92} />
       </mesh>
@@ -185,7 +199,11 @@ export default function RoomEnvironment({
         onPointerOut={handleLampOut}
       >
         <cylinderGeometry args={[0.13, 0.18, 0.86, 18]} />
-        <meshStandardMaterial color={roomTheme.lampStand} roughness={0.45} metalness={0.2} />
+        <meshStandardMaterial
+          color={roomTheme.lampStand}
+          roughness={0.45}
+          metalness={0.2}
+        />
       </mesh>
       <mesh
         position={[2.95, 1.9, 0.92]}
@@ -207,7 +225,8 @@ export default function RoomEnvironment({
       />
 
       <group
-        position={[2.1, 0.2, 2.05]}
+        position={[2.1, 0.6, 2.05]}
+        scale={1.65}
         onPointerMove={handleCoffeeHover}
         onPointerOut={handleCoffeeOut}
         onClick={handleCoffeeClick}
@@ -232,11 +251,12 @@ export default function RoomEnvironment({
             emissiveIntensity={coffeeHovered ? 0.55 : 0.12}
           />
         </mesh>
-        <mesh position={[0, 0.06, 0]}>
-          <circleGeometry args={[0.1, 24]} />
+        <mesh position={[0, 0.105, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[0.102, 24]} />
           <meshStandardMaterial
             color="#8f5a34"
             roughness={0.9}
+            side={THREE.DoubleSide}
             emissive="#ffc075"
             emissiveIntensity={coffeeHovered ? 0.5 : 0.1}
           />

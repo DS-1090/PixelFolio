@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function CommandPalette({
   open,
@@ -9,6 +9,7 @@ export default function CommandPalette({
   onSelectTheme,
 }) {
   const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const filteredActions = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -21,6 +22,11 @@ export default function CommandPalette({
       );
     });
   }, [actions, query]);
+
+  useEffect(() => {
+    if (!open) return;
+    setActiveIndex(0);
+  }, [open, query]);
 
   if (!open) return null;
 
@@ -37,17 +43,44 @@ export default function CommandPalette({
           placeholder="Jump to section..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (!filteredActions.length) return;
+
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              setActiveIndex((prev) => (prev + 1) % filteredActions.length);
+              return;
+            }
+
+            if (e.key === "ArrowUp") {
+              e.preventDefault();
+              setActiveIndex(
+                (prev) =>
+                  (prev - 1 + filteredActions.length) % filteredActions.length,
+              );
+              return;
+            }
+
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const selected = filteredActions[activeIndex];
+              if (!selected) return;
+              onSelectAction(selected.id);
+              onClose();
+            }
+          }}
         />
         <div className="palette-list">
-          {filteredActions.map((item) => (
+          {filteredActions.map((item, index) => (
             <button
               key={item.id}
               type="button"
-              className="palette-item"
+              className={`palette-item ${activeIndex === index ? "active" : ""}`}
               onClick={() => {
                 onSelectAction(item.id);
                 onClose();
               }}
+              onMouseEnter={() => setActiveIndex(index)}
             >
               <strong>{item.label}</strong>
               <span>{item.hint}</span>
